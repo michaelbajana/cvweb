@@ -1,283 +1,384 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curriculum Vitae - Michael Jose Bajaña Espinoza</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael Jose Bajaña Espinoza - Portafolio Web</title>
   <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --dark: #0f172a;
+      --text: #334155;
+      --light-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #e5e7eb;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
-    .cv-container {
-      width: 210mm;
-      min-height: 297mm;
-      background-color: #ffffff;
-      display: flex;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
-    /* Columna Izquierda */
-    .sidebar {
-      width: 32%;
-      background-color: #2b5b84;
+    body {
+      background-color: var(--light-bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navegación por pestañas */
+    header {
+      background-color: var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 15px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #93c5fd;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 12px 22px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .tab-btn:hover {
+      background-color: rgba(255, 255, 255, 0.12);
       color: #ffffff;
-      padding: 20px 15px;
+    }
+
+    .tab-btn.active {
+      background-color: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+
+    /* Contenedor principal */
+    main {
+      max-width: 900px;
+      width: 100%;
+      margin: 30px auto;
+      padding: 0 15px;
+      flex: 1;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 14px;
+      padding: 35px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border);
+    }
+
+    /* Pestaña 1: Inicio */
+    .profile-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 25px;
+    }
+
+    .profile-photo {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(30, 58, 138, 0.25);
+      border: 5px solid #ffffff;
+      outline: 3px solid var(--primary-light);
+    }
+
+    .profile-name {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 1.05rem;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 20px 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 480px;
+      text-align: left;
+    }
+
+    .info-list p strong {
+      color: var(--dark);
+    }
+
+    .info-list a {
+      color: var(--primary-light);
+      text-decoration: none;
+    }
+
+    .info-list a:hover {
+      text-decoration: underline;
+    }
+
+    /* Pestaña 2: Conocimientos */
+    h2.section-title {
+      font-size: 1.6rem;
+      color: var(--dark);
+      margin-bottom: 24px;
+      border-bottom: 3px solid var(--primary-light);
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .skill-box {
+      background: #f8fafc;
+      border-left: 5px solid var(--primary-light);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      font-size: 1.02rem;
+      line-height: 1.5;
+    }
+
+    /* Pestaña 3: Experiencia Laboral */
+    .timeline {
       display: flex;
       flex-direction: column;
       gap: 25px;
-    }
-    .photo-box {
-      width: 100%;
-      height: 220px;
-      background-color: #9cbacf;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-    .photo-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .personal-info {
-      font-size: 13px;
-      line-height: 1.45;
-    }
-    .personal-info p {
-      margin-bottom: 6px;
-    }
-    .sidebar-section-title {
-      font-size: 16px;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      padding-bottom: 4px;
-    }
-    .ref-item {
-      font-size: 11.5px;
-      line-height: 1.35;
-      margin-bottom: 14px;
-    }
-    .ref-name {
-      font-weight: bold;
+      position: relative;
     }
 
-    /* Columna Derecha */
-    .main-content {
-      width: 68%;
-      background-color: #ffffff;
-      color: #333333;
-    }
-    .header-banner {
-      background-color: #bed5e5;
-      padding: 24px 20px;
-      margin-top: 40px;
-    }
-    .header-banner h1 {
-      font-family: "Times New Roman", Times, serif;
-      font-size: 24px;
-      color: #1a202c;
-      letter-spacing: 1px;
-      font-weight: bold;
-    }
-    .content-body {
-      padding: 25px 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
-    .section-title {
-      font-family: "Times New Roman", Times, serif;
-      font-size: 18px;
-      font-weight: bold;
-      color: #111827;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 10px;
+    .timeline-item {
+      position: relative;
+      padding-left: 25px;
+      border-left: 3px solid #cbd5e1;
     }
 
-    /* Estudios */
-    .study-item {
-      margin-left: 120px;
-      margin-bottom: 12px;
-      font-size: 13px;
-      line-height: 1.4;
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -9px;
+      top: 4px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      border: 3px solid #ffffff;
     }
 
-    /* Experiencia Profesional */
-    .job-item {
-      display: flex;
-      gap: 15px;
-      font-size: 12px;
-      line-height: 1.4;
-      margin-bottom: 14px;
-    }
-    .job-date {
-      width: 85px;
-      flex-shrink: 0;
-      color: #374151;
-    }
-    .job-details {
-      flex: 1;
-    }
-    .job-company {
-      font-weight: bold;
-      color: #1f2937;
+    .timeline-date {
+      display: inline-block;
+      background-color: #e0e7ff;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
     }
 
-    /* Conocimientos */
-    .skills-list {
-      font-size: 12.5px;
-      line-height: 1.45;
-      color: #374151;
-    }
-    .skills-list p {
-      margin-bottom: 4px;
+    .company-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--dark);
     }
 
-    @media print {
-      body {
-        background-color: transparent;
-        padding: 0;
+    .job-role {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-bottom: 8px;
+    }
+
+    .job-tasks {
+      font-size: 0.96rem;
+      line-height: 1.6;
+      color: #475569;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 640px) {
+      .nav-container {
+        flex-direction: row;
+        gap: 5px;
       }
-      .cv-container {
-        box-shadow: none;
-        width: 100%;
-        min-height: 100vh;
+      .tab-btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
+      .profile-photo {
+        width: 190px;
+        height: 190px;
+      }
+      .profile-name {
+        font-size: 1.6rem;
+      }
+      .card {
+        padding: 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="cv-container">
-    <!-- Columna Izquierda -->
-    <aside class="sidebar">
-      <div class="photo-box">
-        <!-- Reemplaza "foto.jpg" por la ruta de tu foto en el repositorio -->
-        <img src="images/yo.png" alt="Foto Michael Jose Bajaña Espinoza">
-      </div>
+  <!-- Barra de Pestañas -->
+  <header>
+    <nav class="nav-container">
+      <button class="tab-btn active" onclick="switchTab(event, 'inicio')">Inicio</button>
+      <button class="tab-btn" onclick="switchTab(event, 'conocimientos')">Conocimientos</button>
+      <button class="tab-btn" onclick="switchTab(event, 'experiencia')">Experiencia Laboral</button>
+    </nav>
+  </header>
 
-      <div class="personal-info">
-        <p><strong>C:I</strong> 0918496274[cite: 1]</p>
-        <p><strong>Fecha Nacimiento:</strong> 11 Octubre 1981[cite: 1]</p>
-        <p><strong>Edad:</strong> 43 años[cite: 1]</p>
-        <p><strong>Dirección:</strong> Sauces 8 mz 454 v13[cite: 1]</p>
-        <p><strong>Estado Civil:</strong> divorciado[cite: 1]</p>
-        <p><strong>Teléfono:</strong> 0996129735[cite: 1]</p>
-        <p><strong>Email:</strong><br>vezcuando@gmail.com[cite: 1]</p>
-      </div>
-
-      <div>
-        <div class="sidebar-section-title">Referencias[cite: 1]</div>
-
-        <div class="ref-item">
-          <div class="ref-name">David Alvarez[cite: 1]</div>
-          <div>Stonex Commodities Solutions[cite: 1]</div>
-          <div>Analista de Datos[cite: 1]</div>
-          <div>Telefono: 0987140204[cite: 1]</div>
-        </div>
-
-        <div class="ref-item">
-          <div class="ref-name">Xavier Landa[cite: 1]</div>
-          <div>Righttek SA. Jefe de proyectos[cite: 1]</div>
-          <div>Teléfono 0982890137[cite: 1]</div>
-        </div>
-
-        <div class="ref-item">
-          <div class="ref-name">Alex Bravo[cite: 1]</div>
-          <div>Registro Civil del Ecuador[cite: 1]</div>
-          <div>Analista de Asesoría Jurídica Zonal[cite: 1]</div>
-          <div>Teléfono 0991456775[cite: 1]</div>
-        </div>
-
-        <div class="ref-item">
-          <div class="ref-name">Alex Holguín[cite: 1]</div>
-          <div>Armada del Ecuador[cite: 1]</div>
-          <div>Analista de Tecnología de Información[cite: 1]</div>
-          <div>Teléfono 0988080678[cite: 1]</div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Columna Derecha -->
-    <main class="main-content">
-      <header class="header-banner">
-        <h1>MICHAEL JOSE BAJAÑA ESPINOZA[cite: 1]</h1>
-      </header>
-
-      <div class="content-body">
-        <!-- Estudios -->
-        <section>
-          <h2 class="section-title">Estudios[cite: 1]</h2>
-          <div class="study-item">
-            <div>Bachiller informática[cite: 1]</div>
-            <div>Centro Educativo de las Américas[cite: 1]</div>
+  <main>
+    <!-- Pestaña 1: Inicio -->
+    <section id="inicio" class="tab-content active">
+      <div class="card">
+        <div class="profile-layout">
+          <!-- Coloca el archivo de tu imagen como "foto.jpg" en la misma carpeta -->
+          <img src="foto.jpg" alt="Foto de Michael Jose Bajaña Espinoza" class="profile-photo" />
+          <div>
+            <h1 class="profile-name">Michael Jose Bajaña Espinoza</h1>
+            <div class="info-list">
+              <p><strong>C.I.:</strong> 0918496274</p>
+              <p><strong>Fecha de nacimiento:</strong> 11 Octubre 1981</p>
+              <p><strong>Email:</strong> <a href="mailto:vezcuando@gmail.com">vezcuando@gmail.com</a></p>
+            </div>
           </div>
-          <div class="study-item">
-            <div>4 semestre ing de Sistema[cite: 1]</div>
-            <div>Universidad de Guayaquil[cite: 1]</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pestaña 2: Conocimientos -->
+    <section id="conocimientos" class="tab-content">
+      <div class="card">
+        <h2 class="section-title">Conocimientos Técnicos</h2>
+        <div class="skills-grid">
+          <div class="skill-box">
+            <strong>Sistemas Operativos:</strong> Instalación, mantenimiento, administración y resolución de daños en: Windows XP, Vista, Windows 7, 10, 11, Linux Ubuntu, Alma Linux, Windows Server 2008 s2, 2012, 2016, 2022.
           </div>
-        </section>
+          <div class="skill-box">
+            <strong>Seguridad:</strong> Instalación y mantenimiento de cámaras circuito cerrado.
+          </div>
+          <div class="skill-box">
+            <strong>Hardware:</strong> Ensamblado de equipos de cómputo.
+          </div>
+          <div class="skill-box">
+            <strong>Soporte Técnico:</strong> Diagnóstico y resolución de problemas en hardware.
+          </div>
+          <div class="skill-box">
+            <strong>Impresoras:</strong> Reparación de impresoras Epson L355, L395, L3150.
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Experiencia Profesional -->
-        <section>
-          <h2 class="section-title">Experiencia Profesional[cite: 1]</h2>
+    <!-- Pestaña 3: Experiencia Laboral -->
+    <section id="experiencia" class="tab-content">
+      <div class="card">
+        <h2 class="section-title">Experiencia Laboral</h2>
+        <div class="timeline">
 
-          <div class="job-item">
-            <div class="job-date">1-4-2022[cite: 1]</div>
-            <div class="job-details">
-              <div class="job-company">Syntecomp S.A[cite: 1]</div>
-              <div>Soporte tecnico TI[cite: 1]</div>
-              <div>Tareas relizadas: Soporte in-situ al usuario, instalación de programas Pc, reparación de impresoras, instalación de laboratorios, cableado estructurado(racks de los diferentes edificios), mantenimiento de proyectores, recuperacion de datos borrados en dispositivos de almacenamiento. Resolucion de problemas mac os[cite: 1]</div>
+          <!-- Trabajo 1 -->
+          <div class="timeline-item">
+            <span class="timeline-date">1-4-2020</span>
+            <div class="company-title">Syntecomp S.A</div>
+            <div class="job-role">Soporte Técnico TI</div>
+            <div class="job-tasks">
+              <strong>Tareas realizadas:</strong> Soporte in-situ al usuario, instalación de programas PC, reparación de impresoras, instalación de laboratorios, cableado estructurado (racks de los diferentes edificios), mantenimiento de proyectores, recuperación de datos borrados en dispositivos de almacenamiento. Resolución de problemas macOS.
             </div>
           </div>
 
-          <div class="job-item">
-            <div class="job-date">2-09-2008<br>20-03-2015[cite: 1]</div>
-            <div class="job-details">
-              <div class="job-company">SOLUTECINFO S.A, Soporte técnico TI[cite: 1]</div>
-              <div>Tareas realizadas: Soporte in-situ al usuario, instalación de programas Pc, mac, instalación de Windows server 2008[cite: 1]</div>
-              <div>Cableado estructurado, instalación de routers, switch, patchpanels[cite: 1]</div>
+          <!-- Trabajo 2 -->
+          <div class="timeline-item">
+            <span class="timeline-date">2-09-2008 – 20-03-2018</span>
+            <div class="company-title">SOLUTECINFO S.A</div>
+            <div class="job-role">Soporte Técnico TI</div>
+            <div class="job-tasks">
+              <strong>Tareas realizadas:</strong> Soporte in-situ al usuario, instalación de programas PC, Mac, instalación de Windows Server 2008. Cableado estructurado, instalación de routers, switch, patchpanels.
             </div>
           </div>
 
-          <div class="job-item">
-            <div class="job-date">20-08-2008[cite: 1]</div>
-            <div class="job-details">
-              <div class="job-company">COMPU TEK,[cite: 1]</div>
-              <div>Técnico[cite: 1]</div>
-              <div>Tareas realizadas: diagnóstico de discos duros, ensamblaje de equipos bajo pedido, instalación de programas diagnostico de Daños en pc[cite: 1]</div>
+          <!-- Trabajo 3 -->
+          <div class="timeline-item">
+            <span class="timeline-date">20-08-2005</span>
+            <div class="company-title">COMPU TEK</div>
+            <div class="job-role">Técnico</div>
+            <div class="job-tasks">
+              <strong>Tareas realizadas:</strong> Diagnóstico de discos duros, ensamblaje de equipos bajo pedido, instalación de programas diagnóstico de daños en PC.
             </div>
           </div>
-        </section>
 
-        <!-- Conocimientos -->
-        <section>
-          <h2 class="section-title">Conocimientos[cite: 1]</h2>
-          <div class="skills-list">
-            <p>Instalación, mantenimiento, administración y resolución de daños en sistemas operativos : Windows xp,Vista ,windows 7 , 10, 11, Linux Ubuntu, Alma, Windows server 2008 s2, 2012, 2016.[cite: 1]</p>
-            <p>Instalación y mantenimiento de cámaras circuito cerrado[cite: 1]</p>
-            <p>Ensamblado de equipos de computo,[cite: 1]</p>
-            <p>diagnostico resolución de problemas en hardware[cite: 1]</p>
-            <p>reparacion de impresoras Epson l355, l395, l3150[cite: 1]</p>
-          </div>
-        </section>
+        </div>
       </div>
-    </main>
-  </div>
+    </section>
+  </main>
 
+  <footer>
+    &copy; Michael Jose Bajaña Espinoza - Todos los derechos reservados.
+  </footer>
+
+  <script>
+    function switchTab(event, tabId) {
+      // Ocultar todos los contenidos
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => content.classList.remove('active'));
+
+      // Desactivar botones
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Activar la pestaña y el botón seleccionado
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
 </body>
 </html>
